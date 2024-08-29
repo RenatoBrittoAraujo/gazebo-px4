@@ -5,7 +5,7 @@
 **Faça o clone com todos os submodules**
 
 ```
-git clone
+git clone https://github.com/RenatoBrittoAraujo/gazebo-px4.git --recursive
 ```
 
 # Rode
