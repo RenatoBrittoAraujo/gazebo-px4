@@ -1,0 +1,85 @@
+[global_config]
+  title_hide_sizetext = True
+  enabled_plugins = LaunchpadCodeURLHandler, APTURLHandler, LaunchpadBugURLHandler
+  suppress_multiple_term_dialog = True
+[keybindings]
+[profiles]
+  [[default]]
+    cursor_blink = False
+    font = DejaVu Sans Mono 9
+    scrollback_infinite = True
+[layouts]
+  [[default]]
+
+    [[[root]]]
+      position = -4:0
+      type = Window
+      order = 0
+      parent = ""
+      size = 1870, 1020
+
+    [[[grand]]]
+      position = 536
+      type = HPaned
+      order = 0
+      parent = root
+    [[[left]]]
+      position = 942
+      type = VPaned
+      order = 0
+      parent = grand
+    [[[right]]]
+      position = 942
+      type = VPaned
+      order = 1
+      parent = grand
+    [[[left_top]]]
+      position = 842
+      type = VPaned
+      order = 0
+      parent = left
+    [[[left_bottom]]]
+      position = 842
+      type = VPaned
+      order = 1
+      parent = left
+
+    [[[terminal1]]]
+      profile = default
+      type = Terminal
+      order = 0
+      parent = left_top
+      command = "MicroXRCEAgent udp4 -p 8888; exec bash"
+    [[[terminal2]]]
+      profile = default
+      type = Terminal
+      order = 0
+      parent = left_bottom
+      command = "source /opt/ros/humble/setup.bash; ros2 run ros_gz_image image_bridge /camera; exec bash"
+    [[[terminal3]]]
+      profile = default
+      type = Terminal
+      order = 1
+      parent = right
+      command = "cd ./PX4-Autopilot; sudo make px4_sitl gz_x500_depth; exec bash"
+    [[[terminal4]]]
+      profile = default
+      type = Terminal
+      order = 0
+      parent = right
+      command = "cd ./ws; source install/setup.bash; colcon build --packages-select fase_1; ros2 run fase_1 fase1_script; exec bash"
+    [[[terminal5]]]
+      profile = default
+      type = Terminal
+      order = 1
+      parent = left_bottom
+      command = "cd ./ws/src/fase_1/fase_1; python imagem.py; exec bash"
+    [[[terminal6]]]
+      profile = default
+      type = Terminal
+      order = 1
+      parent = left_top
+      command = "./QGroundControl.AppImage; exec bash"
+
+
+[plugins]
