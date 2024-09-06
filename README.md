@@ -2,20 +2,41 @@
 
 # Instale
 
-**Faça o clone com todos os submodules**
+```
+git clone https://github.com/RenatoBrittoAraujo/gazebo-px4.git
+```
 
 ```
-git clone https://github.com/RenatoBrittoAraujo/gazebo-px4.git --recursive
+cd passos
+./1_install_gazebo_PX4.sh
+./2_install_ros_ubuntu_2204.sh
+./3_install_MicroXRCEAgent.sh
+./4_install_deps.sh
+./5_install_tmux.sh
+./6_install_qgroundcontrol.sh
 ```
 
 # Rode
 
+Em um terminal
 ```
 ./run_nocam.sh
 ```
 
+Em outro terminal
+```
+./QGroundControl.AppImage
+```
+
 # Info
 
+
+Para usar o terminal **tmux**, digite CTRL+B+SETA para direção que você quer mudar o terminal atual.
+
+Compilar pela primeira vez
+`colcon build`
+
+Compilar e rodar código novo
 `colcon build --packages-select fase_1; ros2 run fase_1 fase1_script`
 
 
