@@ -1,5 +1,9 @@
 # gazebo px4
 
+Para mais intruções de como usar, assista: https://www.youtube.com/watch?v=FEXy4CM2EQs
+
+Os terminais são tmux - um gerenciador de terminal. CTRL+B+SETA permite se mover de terminal pra terminal no tmux.
+
 # Instale
 
 ```
