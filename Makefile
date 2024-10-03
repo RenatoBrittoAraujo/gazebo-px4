@@ -1,4 +1,4 @@
-make_nocam:
+nocam:
 	./run_nocam.sh
 
 install:

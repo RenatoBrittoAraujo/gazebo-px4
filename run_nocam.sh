@@ -18,8 +18,7 @@ tmux split-window -h
 tmux select-pane -t 1
 tmux send-keys "cd ws" C-m
 tmux send-keys "source install/setup.bash" C-m
-tmux send-keys "colcon build --packages-select fase_1" C-m
-tmux send-keys "ros2 run fase_1 fase1_script" C-m
+tmux send-keys "colcon build --packages-select fase_3; ros2 run fase_3 fase3_script" C-m
 
 # Split the right pane horizontally and resize it to create a minimized pane at the bottom
 
@@ -28,7 +27,12 @@ tmux resize-pane -D 20  # Adjust the 20 to control the pane size (fewer lines = 
 
 # Move to the bottom pane and run the first command
 tmux select-pane -t 2
+tmux split-window -h
+
+tmux select-pane -t 3
 tmux send-keys "MicroXRCEAgent udp4 -p 8888" C-m
 
+tmux select-pane -t 2
+tmux send-keys "./QGroundControl.AppImage" C-m
 # Attach to the session
 tmux attach-session -t my_session

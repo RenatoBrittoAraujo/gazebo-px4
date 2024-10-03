@@ -20,6 +20,8 @@ cd passos
 ./6_install_qgroundcontrol.sh
 ```
 
+sudo apt install ros-humble-ros-gzgarden
+
 # Rode
 
 Em um terminal
@@ -43,6 +45,13 @@ Compilar pela primeira vez
 Compilar e rodar código novo
 `colcon build --packages-select fase_1; ros2 run fase_1 fase1_script`
 
+### px4
+
+cd
+git clone https://github.com/PX4/PX4-Autopilot.git --recursive
+bash ./PX4-Autopilot/Tools/setup/ubuntu.sh
+cd PX4-Autopilot/
+make px4_sitl
 
 # Fontes
 
