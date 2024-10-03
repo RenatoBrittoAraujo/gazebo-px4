@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sudo -v
+source /opt/ros/humble/setup.bash
 
 # Start a new tmux session
 tmux new-session -d -s my_session
