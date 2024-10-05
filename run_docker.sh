@@ -27,12 +27,12 @@ tmux split-window -v
 tmux split-window -v
 
 tmux select-pane -t 0
-tmux send-keys "sudo docker exec -it ros-px4-humble /bin/bash -c \"cd PX4-Autopilot && sudo make px4_sitl gz_x500_depth\"" C-m
+tmux send-keys "sudo docker exec -it ros-px4-humble /bin/bash -c \"cd PX4-Autopilot && make px4_sitl gz_x500_depth\"" C-m
 
 tmux split-window -h
 
 tmux select-pane -t 1
-tmux send-keys "sudo docker exec -it ros-px4-humble /bin/bash -c \"cd $(pwd)/ws; source /opt/ros/humble/setup.bash; source install/setup.bash; colcon build --packages-select fase_3; ros2 run fase_3 fase3_script\"" C-m
+tmux send-keys "sudo docker exec -it ros-px4-humble /bin/bash -c \"cd $(pwd)/ws; source /opt/ros/humble/setup.bash; source install/setup.bash; colcon build --packages-select fase_3; ros2 run fase_3 fase3_script; exec /bin/bash\"" C-m
 
 tmux resize-pane -D 20  
 
@@ -55,3 +55,6 @@ tmux send-keys "sudo docker exec -it ros-px4-humble /bin/bash -c \"cd $(pwd)/ws/
 
 # Attach to the session
 tmux attach-session -t my_session
+
+
+sudo docker exec -it ros-px4-humble-2 /bin/bash

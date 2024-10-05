@@ -36,7 +36,6 @@ Em outro terminal
 
 # Info
 
-
 Para usar o terminal **tmux**, digite CTRL+B+SETA para direção que você quer mudar o terminal atual.
 
 Compilar pela primeira vez
@@ -45,6 +44,16 @@ Compilar pela primeira vez
 Compilar e rodar código novo
 `colcon build --packages-select fase_1; ros2 run fase_1 fase1_script`
 
+### Instale bibliotecas por ros gz
+
+Na pasta `ws/src`
+
+```
+git clone https://github.com/PX4/px4_ros_com.git
+git clone https://github.com/PX4/px4_msgs.git
+colcon build
+```
+
 ### px4
 
 cd
@@ -52,6 +61,11 @@ git clone https://github.com/PX4/PX4-Autopilot.git --recursive
 bash ./PX4-Autopilot/Tools/setup/ubuntu.sh
 cd PX4-Autopilot/
 make px4_sitl
+
+### Containers
+
+pra rodar rapido
+`sudo docker update --cpu-shares 0 <container_id>`
 
 # Fontes
 
