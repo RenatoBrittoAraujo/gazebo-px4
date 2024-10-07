@@ -57,4 +57,4 @@ tmux send-keys "sudo docker exec -it ros-px4-humble /bin/bash -c \"cd $(pwd)/ws/
 tmux attach-session -t my_session
 
 
-sudo docker exec -it ros-px4-humble-2 /bin/bash
+sudo docker exec -it ros-px4-humble /bin/bash
