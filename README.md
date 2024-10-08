@@ -88,6 +88,8 @@ Lembre-se de colocar sua senha do sistema em todos os terminais.
 sudo docker exec -it ros-px4-humble /bin/bash
 ```
 
+A única pasta que deveria te interesssar no container é a pasta `/edra`. Todo o resto pode ignorar.
+
 As intruções a seguir vão utilizar o comando de abrir o container apresentado.
 
 **Rodar o STIL: gazebo pelo PX4-Autopilot** 
