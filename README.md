@@ -38,7 +38,7 @@ git clone https://github.com/RenatoBrittoAraujo/gazebo-px4
 Se você possui algum **workspace customizado** com código para seu drone:
 ```
 rm -rf ws
-git clone <meu workspace> ws
+git clone <meu workspace> ws --recursive
 ```
 
 #### 3. Baixe a imagem docker
