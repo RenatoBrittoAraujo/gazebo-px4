@@ -4,11 +4,8 @@ services:
   ros-px4-humble:
     image: renatobrittoaraujo/px4-autopilot-v1:latest
     container_name: ros-px4-humble
-    mem_limit: 12g                    # Keep memory limit as per your preference
-    cpus: "4.0"                       # Set CPU limit as per the docker run command
-    build:
-      context: .
-      dockerfile: ./humble-px4.Dockerfile
+    mem_limit: 12g                     # memory limit 
+    cpus: "4.0"                        # CPU limit 
     devices:
       - /dev/dri:/dev/dri              # Add GPU access
     volumes:

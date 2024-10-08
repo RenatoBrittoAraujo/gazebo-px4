@@ -33,21 +33,23 @@ Para instalar QGroundControl:
 git clone https://github.com/RenatoBrittoAraujo/gazebo-px4
 ``` 
 
-#### 2. Clone seu workspace
+#### 2. (Opcional) Clone seu workspace
 
-Se você possui algum workspace customizado com código para seu drone:
-- Apague pasta `ws`
-- Clone `git clone <meu workspace> ws`
+Se você possui algum **workspace customizado** com código para seu drone:
+```
+rm -rf ws
+git clone <meu workspace> ws
+```
 
 #### 3. Baixe a imagem docker
 
 - Baixe a imagem docker a partir de plataforma dockerhub
 - Esta imagem **já foi construida de ponta a ponta** e não requer nenhuma configuração adicional da sua parte 
-- Ela pesa **~21GB** 
+- Ela pesa **~21GB**, **VAI DEMORAR**
 
-Para fazer isso automaticamente, rode: 
+Rode: 
 ```
-get_docker.sh
+sudo docker image pull renatobrittoaraujo/px4-autopilot-v1:latest
 ```
 
 #### 4. Inicie a imagem docker
@@ -56,11 +58,12 @@ get_docker.sh
 
 O container está configurado para usar **12GB** de RAM (no máximo) e **4 CPUS**. Se isso não for possível no seu setup, basta abrir o `docker-compose.yml` e alterar. É bem simples de fazer.
 
+
+O docker-compose.yml usa sua placa de vídeo por meio de uma interface fornecida pelo ubuntu. **Se você não está usando ubuntu, não tem como garantir que vai dar certo.** Nesse caso, edite o docker-compose.yml para adaptar ao linux.
+
 ```
 sudo docker compose up -d 
 ```
-
-O docker-compose.yml usa sua placa de vídeo por meio de uma interface fornecida pelo ubuntu. **Se você não está usando ubuntu, não tem como garantir que vai dar certo.** Nesse caso, edite o docker-compose.yml para adaptar ao linux.
 
 ## Como rodar meu código?
 
