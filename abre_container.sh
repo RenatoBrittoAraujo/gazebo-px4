@@ -1,0 +1,1 @@
+sudo docker exec -it ros-px4-humble /bin/bash

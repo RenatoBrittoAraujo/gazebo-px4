@@ -1,82 +1,118 @@
-# gazebo px4
+# Dev environment PX4-Autopilot
 
-Para mais intruções de como usar, assista: https://www.youtube.com/watch?v=FEXy4CM2EQs
+Usa-se:
+- PX4-Autopilot
+- Gazebo
+- ROS2
+- Seu workspace com código de drone
 
-Os terminais são tmux - um gerenciador de terminal. CTRL+B+SETA permite se mover de terminal pra terminal no tmux.
+## Como instalar esse sistema?
 
-# Instale
+#### 0. Procure as dependencias
 
+Para instalar tmux:
 ```
-git clone https://github.com/RenatoBrittoAraujo/gazebo-px4.git
-```
-
-```
-cd passos
-./1_install_gazebo_PX4.sh
-./2_install_ros_ubuntu_2204.sh
-./3_install_MicroXRCEAgent.sh
-./4_install_deps.sh
-./5_install_tmux.sh
-./6_install_qgroundcontrol.sh
+sudo apt install tmux -y
 ```
 
-sudo apt install ros-humble-ros-gzgarden
-
-# Rode
-
-Em um terminal
+Para instalar Docker Compose:
 ```
-./run_nocam.sh
+sudo apt-get install docker-compose-plugin
 ```
 
-Em outro terminal
+Para instalar QGroundControl:
+```
+./passos/6_install_qgroundcontrol.sh
+```
+
+*se acontecer algum problema no download do QGroundControl, busque o download no google*
+
+
+#### 1. Clone esse repositório
+```
+git clone https://github.com/RenatoBrittoAraujo/gazebo-px4
+``` 
+
+#### 2. Clone seu workspace
+
+Se você possui algum workspace customizado com código para seu drone:
+- Apague pasta `ws`
+- Clone `git clone <meu workspace> ws`
+
+#### 3. Baixe a imagem docker
+
+- Baixe a imagem docker a partir de plataforma dockerhub
+- Esta imagem **já foi construida de ponta a ponta** e não requer nenhuma configuração adicional da sua parte 
+- Ela pesa **~21GB** 
+
+Para fazer isso automaticamente, rode: 
+```
+get_docker.sh
+```
+
+#### 4. Inicie a imagem docker
+
+*Lembre-se de remover container chamado `ros-px4-humble` antes de rodar isso* 
+
+O container está configurado para usar **12GB** de RAM (no máximo) e **4 CPUS**. Se isso não for possível no seu setup, basta abrir o `docker-compose.yml` e alterar. É bem simples de fazer.
+
+```
+sudo docker compose up -d 
+```
+
+O docker-compose.yml usa sua placa de vídeo por meio de uma interface fornecida pelo ubuntu. **Se você não está usando ubuntu, não tem como garantir que vai dar certo.** Nesse caso, edite o docker-compose.yml para adaptar ao linux.
+
+## Como rodar meu código?
+
+#### Opção 1: Levantar tudo automaticamente
+Se você quiser iniciar todos os terminais necessários automaticamente, rode: 
+
+```
+./run_docker.sh
+```
+
+Isso usa o gerenciador de terminais **tmux**
+
+Para trocar entre terminais tmux, digite CTRL+B+SETA para direção que você quer mudar o terminal atual.
+
+Lembre-se de colocar sua senha do sistema em todos os terminais.
+
+#### Opção 2: Rodar terminais individualmente
+
+
+**Para abrir o container, roda**
+```
+sudo docker exec -it ros-px4-humble /bin/bash
+```
+
+As intruções a seguir vão utilizar o comando de abrir o container apresentado.
+
+**Rodar o STIL: gazebo pelo PX4-Autopilot** 
+```
+sudo docker exec -it ros-px4-humble /bin/bash -c "cd PX4-Autopilot && make px4_sitl gz_x500_depth"
+```
+
+**Rodar o seu código no workspace**
+```
+sudo docker exec -it ros-px4-humble /bin/bash -c "cd ws; source /opt/ros/humble/setup.bash; source install/setup.bash; colcon build --packages-select fase_3; ros2 run fase_3 fase3_script"
+```
+
+**Rodar o sistema de mensageria que permite ROS se comunicar com Gazebo**
+```
+sudo docker exec -it ros-px4-humble /bin/bash -c "MicroXRCEAgent udp4 -p 8888 "
+```
+
+**Rodar a controle de solo QGroundControl**
 ```
 ./QGroundControl.AppImage
 ```
 
-# Info
-
-Para usar o terminal **tmux**, digite CTRL+B+SETA para direção que você quer mudar o terminal atual.
-
-Compilar pela primeira vez
-`colcon build`
-
-Compilar e rodar código novo
-`colcon build --packages-select fase_1; ros2 run fase_1 fase1_script`
-
-### Instale bibliotecas 
-
-Na pasta `ws/src`
-
+**Rodar o sistema que vai disponibiliza imagens da camera do gazebo para o ROS**
 ```
-git clone https://github.com/PX4/px4_ros_com.git
-git clone https://github.com/PX4/px4_msgs.git
-- NOTE QUAL A BRANCH DO PX4_MSGS, [LEIA](https://github.com/PX4/px4_msgs?tab=readme-ov-file)
-- INSTALEI MANUALMENTE `pip install packaging==22.0`
-- `pip install lark-parser`
-- `pip3 install --user empy==3.3.4`
-<!-- - pip install --upgrade setuptools==70.0.0 -->
-- pip install setuptools==70.3.0
-- pip install -U catkin_pkg
-- pip install opencv-python
-/edra/PX4-Autopilot/Tools/setup/ubuntu.sh
-colcon build
+sudo docker exec -it ros-px4-humble /bin/bash -c "cd ws; source install/setup.bash; ros2 run ros_gz_image image_bridge /camera"
 ```
 
-### px4
-
-cd
-git clone https://github.com/PX4/PX4-Autopilot.git --recursive
-bash ./PX4-Autopilot/Tools/setup/ubuntu.sh
-cd PX4-Autopilot/
-make px4_sitl
-
-### Containers
-
-pra rodar rapido
-`sudo docker update --cpu-shares 0 <container_id>`
-
-# Fontes
+## Fontes
 
 Consulte este link para explicação da dependencias: https://px4.gitbook.io/px4-user-guide/robotics/ros/ros2/ros2_comm
 

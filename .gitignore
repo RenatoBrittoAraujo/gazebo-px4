@@ -3,3 +3,4 @@ ws/build
 ws/log
 ws/install
 QGroundControl.AppImage
+.env

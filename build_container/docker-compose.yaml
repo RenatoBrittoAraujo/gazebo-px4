@@ -1,0 +1,28 @@
+version: "3.9"
+
+services:
+  ros-px4-humble:
+    image: ros-px4-humble:latest
+    container_name: ros-px4-humble
+    mem_limit: 12g                    # Keep memory limit as per your preference
+    cpus: "4.0"                       # Set CPU limit as per the docker run command
+    build:
+      context: .
+      dockerfile: ./humble-px4.Dockerfile
+    devices:
+      - /dev/dri:/dev/dri              # Add GPU access
+    volumes:
+      - /etc/group:/etc/group:ro
+      - /etc/passwd:/etc/passwd:ro
+      - /etc/shadow:/etc/shadow:ro
+      - /etc/sudoers.d:/etc/sudoers.d:ro
+      - /home:/home:rw
+      - ./ws:/edra/ws:rw
+      - /tmp/.X11-unix:/tmp/.X11-unix  # Add X11 socket to support GUI applications
+    environment:
+      - DISPLAY=$DISPLAY               # Pass the DISPLAY environment variable
+      - HOST_USERNAME=renato
+    network_mode: "host"
+    stdin_open: true                   # Enable interactive mode
+    tty: true                          # Allocate a pseudo-TTY
+    restart: unless-stopped            # Optional: to keep the container running unless
